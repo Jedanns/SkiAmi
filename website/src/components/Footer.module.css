@@ -1,6 +1,9 @@
 .footer {
-    background: var(--bg-dark);
+    background: rgba(10, 14, 23, 0.92);
     position: relative;
+    padding-top: 48px;
+    /* Standard padding */
+    margin-top: 0;
 }
 
 .inner {

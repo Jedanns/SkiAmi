@@ -1,6 +1,8 @@
 .preparation {
-    background: var(--bg-dark);
+    background: rgba(10, 14, 23, 0.92);
     position: relative;
+    padding: 120px 24px;
+    margin-top: 0;
 }
 
 /* ── Total Card ── */

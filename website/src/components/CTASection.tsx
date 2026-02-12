@@ -41,11 +41,9 @@ export default function CTASection() {
 
             <div className="section-inner">
                 <div ref={contentRef} className={styles.content}>
-                    <span className={styles.emoji}>🎿</span>
                     <h2 className={styles.title}>T&apos;es chaud ?</h2>
                     <p className={styles.subtitle}>
-                        Rejoins l&apos;aventure. 8 amis, 7 jours de glisse, des souvenirs
-                        pour la vie.
+                        7 jours de glisse, des souvenirs pour la vie.
                     </p>
 
                     <motion.button
@@ -57,10 +55,6 @@ export default function CTASection() {
                         <span className={styles.buttonText}>Je suis partant !</span>
                         <span className={styles.buttonIcon}>→</span>
                     </motion.button>
-
-                    <p className={styles.note}>
-                        On te recontacte pour valider les détails 📲
-                    </p>
                 </div>
             </div>
         </section>

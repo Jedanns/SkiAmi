@@ -10,34 +10,22 @@ gsap.registerPlugin(ScrollTrigger);
 
 const infoCards = [
     {
-        icon: "📍",
         label: "Destination",
         title: "Val Cenis, Savoie",
         description: "125 km de pistes · 1 300 – 2 800m d'altitude",
         link: "https://www.google.com/maps/place/Val+Cenis",
         linkLabel: "Voir sur Google Maps →",
-        bgHint: "linear-gradient(135deg, #1a2332 0%, #0d1926 100%)",
+        bgHint: "linear-gradient(135deg, rgba(26, 35, 50, 0.4) 0%, rgba(13, 25, 38, 0.6) 100%)",
         image: "/images/val-cenis.jpg",
     },
     {
-        icon: "📅",
         label: "Dates",
         title: "28 Déc. → 3 Jan.",
         description: "7 jours · 6 nuits · Vacances de Noël",
         link: null,
         linkLabel: null,
-        bgHint: "linear-gradient(135deg, #1b2230 0%, #111827 100%)",
+        bgHint: "linear-gradient(135deg, rgba(27, 34, 48, 0.4) 0%, rgba(17, 24, 39, 0.6) 100%)",
         image: "/images/winter.jpg",
-    },
-    {
-        icon: "👥",
-        label: "Le Groupe",
-        title: "8 amis",
-        description: "Une semaine de glisse, de rire et de souvenirs",
-        link: null,
-        linkLabel: null,
-        bgHint: "linear-gradient(135deg, #1a1f2e 0%, #0f1520 100%)",
-        image: null,
     },
 ];
 
@@ -48,69 +36,70 @@ export default function InfoSection() {
     const accomRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            // Pinned horizontal card reveal
-            const cards = cardRefs.current.filter(Boolean);
+        const mm = gsap.matchMedia();
 
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: cardsContainerRef.current,
-                    start: "top top",
-                    end: `+=${cards.length * 100}%`,
-                    pin: true,
-                    scrub: 0.8,
-                    pinSpacing: true,
-                },
-            });
+        mm.add("(min-width: 901px)", () => {
+            const ctx = gsap.context(() => {
+                // Pinned horizontal card reveal
+                const cards = cardRefs.current.filter(Boolean);
 
-            // Each card slides in from right
-            cards.forEach((card, i) => {
-                if (i === 0) {
-                    // First card starts visible
-                    tl.fromTo(card!,
-                        { xPercent: 100, opacity: 0, scale: 0.9 },
-                        { xPercent: 0, opacity: 1, scale: 1, duration: 1, ease: "none" }
-                    );
-                } else {
-                    // Subsequent cards: previous slides out left, new comes from right
-                    tl.to(cards[i - 1]!, {
-                        xPercent: -100,
-                        opacity: 0,
-                        scale: 0.9,
-                        duration: 0.5,
-                        ease: "none",
-                    });
-                    tl.fromTo(card!,
-                        { xPercent: 100, opacity: 0, scale: 0.9 },
-                        { xPercent: 0, opacity: 1, scale: 1, duration: 0.5, ease: "none" },
-                        "-=0.3"
-                    );
-                }
-
-                // Hold on each card for a moment
-                tl.to({}, { duration: 0.3 });
-            });
-
-            // Accommodation section: scroll-triggered reveal
-            gsap.fromTo(accomRef.current,
-                { y: 80, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 1,
-                    ease: "power3.out",
+                const tl = gsap.timeline({
                     scrollTrigger: {
-                        trigger: accomRef.current,
-                        start: "top 80%",
-                        end: "top 40%",
-                        scrub: 0.5,
+                        trigger: cardsContainerRef.current,
+                        start: "top top",
+                        end: `+=${cards.length * 100}%`,
+                        pin: true,
+                        scrub: 0.8,
+                        pinSpacing: true,
                     },
-                }
-            );
+                });
 
-        }, sectionRef);
+                // Each card slides in from right
+                cards.forEach((card, i) => {
+                    if (i === 0) {
+                        // First card is ALREADY THERE (static)
+                        gsap.set(card, { xPercent: 0, opacity: 1, scale: 1 });
+                    } else {
+                        // Subsequent cards: previous slides out left, new comes from right
+                        tl.to(cards[i - 1]!, {
+                            xPercent: -100,
+                            opacity: 0,
+                            scale: 0.9,
+                            duration: 0.5,
+                            ease: "none",
+                        });
+                        tl.fromTo(card!,
+                            { xPercent: 100, opacity: 0, scale: 0.9 },
+                            { xPercent: 0, opacity: 1, scale: 1, duration: 0.5, ease: "none" },
+                            "-=0.3" // Slight overlap
+                        );
+                    }
 
-        return () => ctx.revert();
+                    // Hold on each card for a moment
+                    tl.to({}, { duration: 0.3 });
+                });
+
+                // Accommodation section: scroll-triggered reveal
+                gsap.fromTo(accomRef.current,
+                    { y: 80, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: accomRef.current,
+                            start: "top 80%",
+                            end: "top 40%",
+                            scrub: 0.5,
+                        },
+                    }
+                );
+
+            }, sectionRef);
+        });
+
+        return () => mm.revert();
     }, []);
 
     return (
@@ -125,7 +114,6 @@ export default function InfoSection() {
                         style={{ background: card.bgHint }}
                     >
                         <div className={styles.fullCardInner}>
-                            <span className={styles.cardIcon}>{card.icon}</span>
                             <span className={styles.cardLabel}>{card.label}</span>
                             <h3 className={styles.cardTitle}>{card.title}</h3>
                             <p className={styles.cardDesc}>{card.description}</p>

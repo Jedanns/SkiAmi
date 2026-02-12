@@ -11,7 +11,6 @@ export default function Footer() {
             <div className={styles.inner}>
                 <div className={styles.brand}>
                     <span className={styles.logo}>
-                        <span className={styles.logoIcon}>◆</span>
                         SkiAmi
                     </span>
                     <span className={styles.tagline}>Val Cenis · Hiver {currentYear}</span>
@@ -24,7 +23,7 @@ export default function Footer() {
                 </nav>
 
                 <p className={styles.credit}>
-                    Made with ❄️ entre amis
+                    Made between friends
                 </p>
             </div>
         </footer>

@@ -105,7 +105,6 @@ export default function PreparationSection() {
                             ref={(el) => { itemRefs.current[i] = el; }}
                             className={styles.budgetItem}
                         >
-                            <span className={styles.budgetIcon}>{item.icon}</span>
                             <div className={styles.budgetInfo}>
                                 <span className={styles.budgetLabel}>{item.label}</span>
                                 <span className={styles.budgetDesc}>{item.description}</span>

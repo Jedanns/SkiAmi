@@ -9,7 +9,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLDivElement>(null);
   const titleLeftRef = useRef<HTMLSpanElement>(null);
   const titleRightRef = useRef<HTMLSpanElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
@@ -20,12 +19,15 @@ export default function HeroSection() {
   const dateRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const videoBg = document.getElementById("video-bg");
+    if (!videoBg) return;
+
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=200%",
+          end: "+=120%",
           pin: true,
           scrub: true,
           pinSpacing: true,
@@ -39,7 +41,7 @@ export default function HeroSection() {
         opacity: 0, duration: 0.06, ease: "none",
       }, 0);
 
-      tl.to(videoRef.current, {
+      tl.to(videoBg, {
         filter: "blur(8px)",
         scale: 1.12,
         duration: 0.40,
@@ -79,15 +81,10 @@ export default function HeroSection() {
       }, 0.24);
 
       // ─── Phase 3: 62% → 100% ───────────────────────────
-      // Full blackout
+      // Overlay darkens for transition (video stays behind)
 
       tl.to(overlayRef.current, {
-        opacity: 1, duration: 0.38, ease: "none",
-      }, 0.62);
-
-      tl.to(videoRef.current, {
-        filter: "blur(16px)",
-        scale: 1.25,
+        opacity: 0.4,
         duration: 0.38,
         ease: "none",
       }, 0.62);
@@ -99,17 +96,7 @@ export default function HeroSection() {
 
   return (
     <div ref={containerRef} className={styles.hero}>
-      <div ref={videoRef} className={styles.videoWrapper}>
-        <video
-          className={styles.video}
-          autoPlay muted loop playsInline
-          poster="/images/hero-poster.jpg"
-        >
-          <source src="/videos/hero.mp4" type="video/mp4" />
-        </video>
-        <div className={styles.videoFallback} />
-      </div>
-
+      {/* Overlay only — video is now fixed at page level */}
       <div ref={overlayRef} className={styles.overlay} />
 
       <div ref={heroContentRef} className={styles.content}>
