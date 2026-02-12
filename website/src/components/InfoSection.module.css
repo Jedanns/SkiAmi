@@ -1,0 +1,164 @@
+.info {
+    position: relative;
+    background: var(--bg-dark);
+}
+
+/* ── Full-Screen Cards Viewport ── */
+.cardsViewport {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.fullCard {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    will-change: transform, opacity;
+}
+
+.fullCardInner {
+    padding: 80px 60px 80px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 2;
+}
+
+.cardIcon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+}
+
+.cardLabel {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+}
+
+.cardTitle {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.1;
+}
+
+.cardDesc {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 400px;
+}
+
+.cardLink {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-top: 16px;
+    transition: color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cardLink:hover {
+    color: var(--accent-light);
+}
+
+.cardImageSlot {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.imagePlaceholder {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    padding: 40px;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+}
+
+/* ── Accommodation ── */
+.accommodation {
+    padding: 120px 24px;
+    background: var(--bg-section);
+    will-change: transform, opacity;
+}
+
+.accomInner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.accomHeader {
+    margin-bottom: 40px;
+}
+
+.accomLabel {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.accomLabel::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+}
+
+.accomTitle {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.accomSubtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+    .fullCard {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto;
+    }
+
+    .fullCardInner {
+        padding: 60px 24px 40px;
+        justify-content: flex-end;
+    }
+
+    .cardImageSlot {
+        display: none;
+    }
+
+    .cardTitle {
+        font-size: clamp(1.8rem, 8vw, 3rem);
+    }
+}
+
+@media (max-width: 768px) {
+    .accommodation {
+        padding: 80px 16px;
+    }
+}

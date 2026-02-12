@@ -1,0 +1,197 @@
+.preparation {
+    background: var(--bg-dark);
+    position: relative;
+}
+
+/* ── Total Card ── */
+.totalCard {
+    position: relative;
+    background: linear-gradient(135deg, rgba(212, 168, 83, 0.08) 0%, rgba(212, 168, 83, 0.02) 100%);
+    border: 1px solid rgba(212, 168, 83, 0.15);
+    border-radius: var(--radius-xl);
+    padding: 48px;
+    text-align: center;
+    margin-bottom: 48px;
+    overflow: hidden;
+}
+
+.totalInner {
+    position: relative;
+    z-index: 2;
+}
+
+.totalGlow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(212, 168, 83, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.totalLabel {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 20px;
+}
+
+.totalAmount {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.totalCurrency {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.totalRange {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 4.5rem);
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.totalNote {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* ── Budget List ── */
+.budgetList {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 32px;
+}
+
+.budgetListHeader {
+    padding: 20px 28px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.budgetItem {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    transition: background 0.3s ease;
+}
+
+.budgetItem:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.budgetItem:last-of-type {
+    border-bottom: none;
+}
+
+.budgetIcon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    width: 40px;
+    text-align: center;
+}
+
+.budgetInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.budgetLabel {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.budgetDesc {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+}
+
+.budgetAmount {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+.budgetTotal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 28px;
+    border-top: 1px solid var(--glass-border);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+}
+
+.budgetTotalAmount {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--accent);
+}
+
+/* ── Note ── */
+.note {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .totalCard {
+        padding: 32px 20px;
+        border-radius: var(--radius-lg);
+    }
+
+    .budgetItem {
+        padding: 16px 20px;
+        gap: 14px;
+    }
+
+    .budgetIcon {
+        font-size: 1.3rem;
+        width: 32px;
+    }
+
+    .budgetAmount {
+        font-size: 1rem;
+    }
+
+    .budgetListHeader,
+    .budgetTotal {
+        padding: 16px 20px;
+    }
+}

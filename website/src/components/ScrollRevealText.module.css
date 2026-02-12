@@ -1,0 +1,32 @@
+.container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-dark);
+    position: relative;
+    overflow: hidden;
+}
+
+.inner {
+    text-align: center;
+    padding: 0 24px;
+    max-width: 1000px;
+}
+
+.text {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.1;
+    will-change: transform, opacity, filter;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-top: 20px;
+    letter-spacing: 0.06em;
+    will-change: transform, opacity;
+}

@@ -1,0 +1,68 @@
+"use client";
+
+import { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
+import styles from "./CTASection.module.css";
+
+gsap.registerPlugin(ScrollTrigger);
+
+export default function CTASection() {
+    const containerRef = useRef<HTMLElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.fromTo(contentRef.current,
+                { scale: 0.8, opacity: 0, filter: "blur(8px)" },
+                {
+                    scale: 1,
+                    opacity: 1,
+                    filter: "blur(0px)",
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: "top 70%",
+                        end: "top 20%",
+                        scrub: 0.6,
+                    },
+                }
+            );
+        }, containerRef);
+
+        return () => ctx.revert();
+    }, []);
+
+    return (
+        <section ref={containerRef} id="cta" className={`section ${styles.cta}`}>
+            {/* Mountain silhouette */}
+            <div className={styles.mountainBg} />
+
+            <div className="section-inner">
+                <div ref={contentRef} className={styles.content}>
+                    <span className={styles.emoji}>🎿</span>
+                    <h2 className={styles.title}>T&apos;es chaud ?</h2>
+                    <p className={styles.subtitle}>
+                        Rejoins l&apos;aventure. 8 amis, 7 jours de glisse, des souvenirs
+                        pour la vie.
+                    </p>
+
+                    <motion.button
+                        className={styles.button}
+                        whileHover={{ scale: 1.04, y: -2 }}
+                        whileTap={{ scale: 0.98 }}
+                        transition={{ duration: 0.2 }}
+                    >
+                        <span className={styles.buttonText}>Je suis partant !</span>
+                        <span className={styles.buttonIcon}>→</span>
+                    </motion.button>
+
+                    <p className={styles.note}>
+                        On te recontacte pour valider les détails 📲
+                    </p>
+                </div>
+            </div>
+        </section>
+    );
+}
