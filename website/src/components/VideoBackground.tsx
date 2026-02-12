@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./VideoBackground.module.css";
+import { getMediaUrl } from "@/utils/supabase/storage";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,11 +24,12 @@ export default function VideoBackground() {
                 muted
                 loop
                 playsInline
-                poster="/images/hero-poster.jpg"
+                poster={getMediaUrl("images/hero-poster.jpg")}
             >
-                <source src="/videos/hero.mp4" type="video/mp4" />
+                <source src="https://pub-cae9f65980aa4fec812cc520a67fe57d.r2.dev/videos/hero.mp4" type="video/mp4" />
             </video>
             <div className={styles.fallback} />
         </div>
     );
 }
+

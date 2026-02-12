@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./AccommodationCarousel.module.css";
+import { getMediaUrl } from "@/utils/supabase/storage";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,16 +13,16 @@ import Image from "next/image";
 
 // Real accommodation photos
 const slides = [
-    { id: 1, src: "/images/accommodation/1.avif", alt: "Vue extérieure de la résidence" },
-    { id: 2, src: "/images/accommodation/2.avif", alt: "Salon spacieux et lumineux" },
-    { id: 3, src: "/images/accommodation/3.avif", alt: "Coin repas convivial" },
-    { id: 4, src: "/images/accommodation/4.avif", alt: "Chambre confortable" },
-    { id: 5, src: "/images/accommodation/5.avif", alt: "Cuisine moderne équipée" },
-    { id: 6, src: "/images/accommodation/6.avif", alt: "Salle de bain élégante" },
-    { id: 7, src: "/images/accommodation/7.avif", alt: "Vue depuis le balcon" },
-    { id: 8, src: "/images/accommodation/8.avif", alt: "Espace détente" },
-    { id: 9, src: "/images/accommodation/9.avif", alt: "Chambre avec lits jumeaux" },
-    { id: 10, src: "/images/accommodation/10.avif", alt: "Détails de décoration" },
+    { id: 1, src: getMediaUrl("images/accommodation/1.avif"), alt: "Vue extérieure de la résidence" },
+    { id: 2, src: getMediaUrl("images/accommodation/2.avif"), alt: "Salon spacieux et lumineux" },
+    { id: 3, src: getMediaUrl("images/accommodation/3.avif"), alt: "Coin repas convivial" },
+    { id: 4, src: getMediaUrl("images/accommodation/4.avif"), alt: "Chambre confortable" },
+    { id: 5, src: getMediaUrl("images/accommodation/5.avif"), alt: "Cuisine moderne équipée" },
+    { id: 6, src: getMediaUrl("images/accommodation/6.avif"), alt: "Salle de bain élégante" },
+    { id: 7, src: getMediaUrl("images/accommodation/7.avif"), alt: "Vue depuis le balcon" },
+    { id: 8, src: getMediaUrl("images/accommodation/8.avif"), alt: "Espace détente" },
+    { id: 9, src: getMediaUrl("images/accommodation/9.avif"), alt: "Chambre avec lits jumeaux" },
+    { id: 10, src: getMediaUrl("images/accommodation/10.avif"), alt: "Détails de décoration" },
 ];
 
 const AUTOPLAY_MS = 4000;

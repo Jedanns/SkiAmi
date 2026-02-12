@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AccommodationCarousel from "./AccommodationCarousel";
 import styles from "./InfoSection.module.css";
+import { getMediaUrl } from "@/utils/supabase/storage";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,7 +17,7 @@ const infoCards = [
         link: "https://www.google.com/maps/place/Val+Cenis",
         linkLabel: "Voir sur Google Maps →",
         bgHint: "rgba(20, 26, 38, 0.4)", // Solid dark
-        image: "/images/val-cenis.jpg",
+        image: getMediaUrl("images/val-cenis.jpg"),
     },
     {
         label: "Dates",
@@ -25,7 +26,7 @@ const infoCards = [
         link: null,
         linkLabel: null,
         bgHint: "rgba(20, 26, 38, 0.4)", // Solid dark
-        image: "/images/winter.jpg",
+        image: getMediaUrl("images/winter.jpg"),
     },
 ];
 
