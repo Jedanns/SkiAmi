@@ -17,6 +17,7 @@ const infoCards = [
         link: "https://www.google.com/maps/place/Val+Cenis",
         linkLabel: "Voir sur Google Maps →",
         bgHint: "linear-gradient(135deg, #1a2332 0%, #0d1926 100%)",
+        image: "/images/val-cenis.jpg",
     },
     {
         icon: "📅",
@@ -26,6 +27,7 @@ const infoCards = [
         link: null,
         linkLabel: null,
         bgHint: "linear-gradient(135deg, #1b2230 0%, #111827 100%)",
+        image: "/images/winter.jpg",
     },
     {
         icon: "👥",
@@ -35,6 +37,7 @@ const infoCards = [
         link: null,
         linkLabel: null,
         bgHint: "linear-gradient(135deg, #1a1f2e 0%, #0f1520 100%)",
+        image: null,
     },
 ];
 
@@ -137,9 +140,16 @@ export default function InfoSection() {
                                 </a>
                             )}
                         </div>
-                        {/* Placeholder for background image */}
                         <div className={styles.cardImageSlot}>
-                            <span className={styles.imagePlaceholder}>📸 Image à ajouter</span>
+                            {card.image ? (
+                                <img
+                                    src={card.image}
+                                    alt={card.title}
+                                    className={styles.cardImage}
+                                />
+                            ) : (
+                                <span className={styles.imagePlaceholder}>📸 Image à ajouter</span>
+                            )}
                         </div>
                     </div>
                 ))}
