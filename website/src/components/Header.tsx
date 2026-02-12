@@ -21,11 +21,16 @@ export default function Header() {
     const bgColorValue = useTransform(bgOpacity, (v) => `rgba(10, 14, 23, ${v})`);
 
     useEffect(() => {
-        const unsubscribe = scrollY.on("change", (y) => {
-            setVisible(y > window.innerHeight * 0.85);
-        });
-        return () => unsubscribe();
-    }, [scrollY]);
+        const budgetEl = document.getElementById("budget");
+        if (!budgetEl) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => setVisible(entry.isIntersecting || entry.boundingClientRect.top < 0),
+            { threshold: 0, rootMargin: "-10% 0px 0px 0px" }
+        );
+        observer.observe(budgetEl);
+        return () => observer.disconnect();
+    }, []);
 
     return (
         <AnimatePresence>
