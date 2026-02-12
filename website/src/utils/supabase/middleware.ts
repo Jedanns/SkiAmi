@@ -5,11 +5,19 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
 
 export const updateSession = async (request: NextRequest) => {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
+
+    // If Supabase is not configured, skip session refresh
+    if (!supabaseUrl || !supabaseKey) {
+        return NextResponse.next({ request });
+    }
+
     let supabaseResponse = NextResponse.next({
         request,
     });
 
-    const supabase = createServerClient(supabaseUrl!, supabaseKey!, {
+    const supabase = createServerClient(supabaseUrl, supabaseKey, {
         cookies: {
             getAll() {
                 return request.cookies.getAll();

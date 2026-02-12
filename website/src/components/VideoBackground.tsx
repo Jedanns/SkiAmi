@@ -26,7 +26,7 @@ export default function VideoBackground() {
                 playsInline
                 poster={getMediaUrl("images/hero-poster.jpg")}
             >
-                <source src="https://pub-cae9f65980aa4fec812cc520a67fe57d.r2.dev/videos/hero.mp4" type="video/mp4" />
+                <source src="https://pub-cae9f65980aa4fec812cc520a67fe57d.r2.dev/SKI%20Poudreuse%20%20Les%203%20vall%C3%A9es.mp4" type="video/mp4" />
             </video>
             <div className={styles.fallback} />
         </div>
