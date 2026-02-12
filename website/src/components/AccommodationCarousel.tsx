@@ -8,14 +8,20 @@ import styles from "./AccommodationCarousel.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Placeholder images — replace with real accommodation photos
+import Image from "next/image";
+
+// Real accommodation photos
 const slides = [
-    { id: 1, alt: "Salon et espace de vie", color: "#1a2332" },
-    { id: 2, alt: "Chambre avec vue montagne", color: "#1b2535" },
-    { id: 3, alt: "Cuisine équipée", color: "#1c2638" },
-    { id: 4, alt: "Salle de bain", color: "#1d273b" },
-    { id: 5, alt: "Vue extérieure", color: "#1e283e" },
-    { id: 6, alt: "Terrasse panoramique", color: "#1f2941" },
+    { id: 1, src: "/images/accommodation/1.avif", alt: "Vue extérieure de la résidence" },
+    { id: 2, src: "/images/accommodation/2.avif", alt: "Salon spacieux et lumineux" },
+    { id: 3, src: "/images/accommodation/3.avif", alt: "Coin repas convivial" },
+    { id: 4, src: "/images/accommodation/4.avif", alt: "Chambre confortable" },
+    { id: 5, src: "/images/accommodation/5.avif", alt: "Cuisine moderne équipée" },
+    { id: 6, src: "/images/accommodation/6.avif", alt: "Salle de bain élégante" },
+    { id: 7, src: "/images/accommodation/7.avif", alt: "Vue depuis le balcon" },
+    { id: 8, src: "/images/accommodation/8.avif", alt: "Espace détente" },
+    { id: 9, src: "/images/accommodation/9.avif", alt: "Chambre avec lits jumeaux" },
+    { id: 10, src: "/images/accommodation/10.avif", alt: "Détails de décoration" },
 ];
 
 const AUTOPLAY_MS = 4000;
@@ -98,16 +104,29 @@ export default function AccommodationCarousel() {
                         animate="center"
                         exit="exit"
                         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                        style={{
-                            background: `linear-gradient(135deg, ${slides[current].color} 0%, ${slides[current].color}88 100%)`,
-                        }}
                     >
+                        <Image
+                            src={slides[current].src}
+                            alt={slides[current].alt}
+                            fill
+                            className={styles.slideImage}
+                            sizes="(max-width: 768px) 100vw, 80vw"
+                            priority
+                            style={{ objectFit: 'cover' }}
+                        />
+                        {/* Overlay gradient for text readability */}
+                        <div style={{
+                            position: 'absolute',
+                            inset: 0,
+                            background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%)',
+                            zIndex: 1
+                        }} />
+
                         <div className={styles.slideInner}>
                             <span className={styles.slideNumber}>
                                 {String(current + 1).padStart(2, "0")}
                             </span>
                             <span className={styles.slideLabel}>{slides[current].alt}</span>
-                            <span className={styles.slidePlaceholder}>📸 Ajoutez une photo ici</span>
                         </div>
                     </motion.div>
                 </AnimatePresence>
@@ -129,15 +148,23 @@ export default function AccommodationCarousel() {
                 </button>
             </div>
 
-            {/* Dots */}
-            <div className={styles.dots}>
+            {/* Thumbnails */}
+            <div className={styles.thumbnails}>
                 {slides.map((s, i) => (
                     <button
                         key={s.id}
-                        className={`${styles.dot} ${i === current ? styles.dotActive : ""}`}
+                        className={`${styles.thumb} ${i === current ? styles.thumbActive : ""}`}
                         onClick={() => goTo(i, i > current ? 1 : -1)}
                         aria-label={`Photo ${i + 1}`}
-                    />
+                    >
+                        <Image
+                            src={s.src}
+                            alt=""
+                            fill
+                            className={styles.thumbImage}
+                            sizes="80px"
+                        />
+                    </button>
                 ))}
             </div>
 
@@ -147,6 +174,6 @@ export default function AccommodationCarousel() {
                 <span className={styles.counterSep}>/</span>
                 <span className={styles.counterTotal}>{String(slides.length).padStart(2, "0")}</span>
             </div>
-        </div>
+        </div >
     );
 }

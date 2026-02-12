@@ -15,7 +15,7 @@ const infoCards = [
         description: "125 km de pistes · 1 300 – 2 800m d'altitude",
         link: "https://www.google.com/maps/place/Val+Cenis",
         linkLabel: "Voir sur Google Maps →",
-        bgHint: "linear-gradient(135deg, rgba(26, 35, 50, 0.4) 0%, rgba(13, 25, 38, 0.6) 100%)",
+        bgHint: "rgba(20, 26, 38, 0.4)", // Solid dark
         image: "/images/val-cenis.jpg",
     },
     {
@@ -24,7 +24,7 @@ const infoCards = [
         description: "7 jours · 6 nuits · Vacances de Noël",
         link: null,
         linkLabel: null,
-        bgHint: "linear-gradient(135deg, rgba(27, 34, 48, 0.4) 0%, rgba(17, 24, 39, 0.6) 100%)",
+        bgHint: "rgba(20, 26, 38, 0.4)", // Solid dark
         image: "/images/winter.jpg",
     },
 ];
