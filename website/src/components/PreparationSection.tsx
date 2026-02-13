@@ -121,7 +121,7 @@ export default function PreparationSection() {
                 </div>
 
                 <p className={styles.note}>
-                    💡 Ces montants sont des estimations et peuvent varier. Le budget
+                    Ces montants sont des estimations et peuvent varier. Le budget
                     nourriture est calculé sur une base de courses communes.
                 </p>
             </div>

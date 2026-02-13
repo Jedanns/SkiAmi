@@ -23,7 +23,7 @@ export default function Footer() {
                 </nav>
 
                 <p className={styles.credit}>
-                    Made between friends
+                    Made by Lucas Dias (T’as vu je bosse dur au boulot promis juré)
                 </p>
             </div>
         </footer>

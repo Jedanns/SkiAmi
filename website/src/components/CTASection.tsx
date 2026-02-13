@@ -41,9 +41,9 @@ export default function CTASection() {
 
             <div className="section-inner">
                 <div ref={contentRef} className={styles.content}>
-                    <h2 className={styles.title}>T&apos;es chaud ?</h2>
+                    <h2 className={styles.title}>Chaud ?</h2>
                     <p className={styles.subtitle}>
-                        7 jours de glisse, des souvenirs pour la vie.
+                        On va se la donner j’ai juré Tartiflette – piste noire day 1
                     </p>
 
                     <motion.button
@@ -52,8 +52,7 @@ export default function CTASection() {
                         whileTap={{ scale: 0.98 }}
                         transition={{ duration: 0.2 }}
                     >
-                        <span className={styles.buttonText}>Je suis partant !</span>
-                        <span className={styles.buttonIcon}>→</span>
+                        <span className={styles.buttonText}>Organisation</span>
                     </motion.button>
                 </div>
             </div>
