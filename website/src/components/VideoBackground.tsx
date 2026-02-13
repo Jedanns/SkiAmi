@@ -24,6 +24,8 @@ export default function VideoBackground() {
                 muted
                 loop
                 playsInline
+                crossOrigin="anonymous"
+                preload="auto"
                 poster={getMediaUrl("images/hero-poster.jpg")}
             >
                 <source src="https://pub-cae9f65980aa4fec812cc520a67fe57d.r2.dev/SKI%20Poudreuse%20%20Les%203%20vall%C3%A9es.mp4" type="video/mp4" />
