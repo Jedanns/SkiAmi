@@ -12,112 +12,134 @@ gsap.registerPlugin(ScrollTrigger);
 const infoCards = [
     {
         label: "Destination",
-        title: "Val Cenis, Savoie",
-        description: "125 km de pistes · 1 300 – 2 800m d'altitude",
+        title: "Val Cenis",
+        subtitle: "Savoie, France",
+        stats: [
+            { value: "125 km", label: "de pistes" },
+            { value: "2 800m", label: "d'altitude max" },
+        ],
         link: "https://www.google.com/maps/place/Val+Cenis",
-        linkLabel: "Voir sur Google Maps →",
-        bgHint: "rgba(20, 26, 38, 0.4)", // Solid dark
+        linkLabel: "Google Maps",
         image: getMediaUrl("images/val-cenis.jpg"),
+        icon: "📍",
     },
     {
         label: "Dates",
-        title: "28 Déc. → 3 Jan.",
-        description: "7 jours · 6 nuits · Vacances de Noël",
+        title: "28 Déc.",
+        titleEnd: "3 Jan.",
+        subtitle: "Vacances de Noël",
+        stats: [
+            { value: "7", label: "jours" },
+            { value: "6", label: "nuits" },
+        ],
         link: null,
         linkLabel: null,
-        bgHint: "rgba(20, 26, 38, 0.4)", // Solid dark
         image: getMediaUrl("images/winter.jpg"),
+        icon: "📅",
     },
 ];
 
 export default function InfoSection() {
     const sectionRef = useRef<HTMLElement>(null);
-    const cardsContainerRef = useRef<HTMLDivElement>(null);
+    const cardsRowRef = useRef<HTMLDivElement>(null);
     const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
     const accomRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const mm = gsap.matchMedia();
+        const ctx = gsap.context(() => {
+            // Staggered card entrance animation
+            const cards = cardRefs.current.filter(Boolean);
 
-        mm.add("(min-width: 901px)", () => {
-            const ctx = gsap.context(() => {
-                // Pinned horizontal card reveal
-                const cards = cardRefs.current.filter(Boolean);
-
-                const tl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: cardsContainerRef.current,
-                        start: "top top",
-                        end: `+=${cards.length * 100}%`,
-                        pin: true,
-                        scrub: 0.8,
-                        pinSpacing: true,
-                    },
-                });
-
-                // Each card slides in from right
-                cards.forEach((card, i) => {
-                    if (i === 0) {
-                        // First card is ALREADY THERE (static)
-                        gsap.set(card, { xPercent: 0, opacity: 1, scale: 1 });
-                    } else {
-                        // Subsequent cards: previous slides out left, new comes from right
-                        tl.to(cards[i - 1]!, {
-                            xPercent: -100,
-                            opacity: 0,
-                            scale: 0.9,
-                            duration: 0.5,
-                            ease: "none",
-                        });
-                        tl.fromTo(card!,
-                            { xPercent: 100, opacity: 0, scale: 0.9 },
-                            { xPercent: 0, opacity: 1, scale: 1, duration: 0.5, ease: "none" },
-                            "-=0.3" // Slight overlap
-                        );
-                    }
-
-                    // Hold on each card for a moment
-                    tl.to({}, { duration: 0.3 });
-                });
-
-                // Accommodation section: scroll-triggered reveal
-                gsap.fromTo(accomRef.current,
-                    { y: 80, opacity: 0 },
+            cards.forEach((card, i) => {
+                gsap.fromTo(card,
+                    { y: 60, opacity: 0, scale: 0.96 },
                     {
                         y: 0,
                         opacity: 1,
-                        duration: 1,
+                        scale: 1,
+                        duration: 0.8,
+                        delay: i * 0.15,
                         ease: "power3.out",
                         scrollTrigger: {
-                            trigger: accomRef.current,
-                            start: "top 80%",
-                            end: "top 40%",
-                            scrub: 0.5,
+                            trigger: card,
+                            start: "top 85%",
+                            end: "top 50%",
+                            toggleActions: "play none none reverse",
                         },
                     }
                 );
+            });
 
-            }, sectionRef);
-        });
+            // Accommodation section reveal
+            gsap.fromTo(accomRef.current,
+                { y: 80, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: accomRef.current,
+                        start: "top 80%",
+                        end: "top 40%",
+                        scrub: 0.5,
+                    },
+                }
+            );
+        }, sectionRef);
 
-        return () => mm.revert();
+        return () => ctx.revert();
     }, []);
 
     return (
         <section ref={sectionRef} id="sejour" className={styles.info}>
-            {/* Pinned cards viewport */}
-            <div ref={cardsContainerRef} className={styles.cardsViewport}>
+            {/* Side-by-side cards */}
+            <div ref={cardsRowRef} className={styles.cardsRow}>
                 {infoCards.map((card, i) => (
                     <div
                         key={card.label}
                         ref={(el) => { cardRefs.current[i] = el; }}
-                        className={styles.fullCard}
-                        style={{ background: card.bgHint }}
+                        className={styles.card}
                     >
-                        <div className={styles.fullCardInner}>
-                            <span className={styles.cardLabel}>{card.label}</span>
-                            <h3 className={styles.cardTitle}>{card.title}</h3>
-                            <p className={styles.cardDesc}>{card.description}</p>
+                        {/* Background image */}
+                        <div className={styles.cardImageWrap}>
+                            <img
+                                src={card.image}
+                                alt={card.title}
+                                className={styles.cardImage}
+                            />
+                            <div className={styles.cardOverlay} />
+                        </div>
+
+                        {/* Content */}
+                        <div className={styles.cardContent}>
+                            <div className={styles.cardTop}>
+                                <span className={styles.cardIcon}>{card.icon}</span>
+                                <span className={styles.cardLabel}>{card.label}</span>
+                            </div>
+
+                            <div className={styles.cardMain}>
+                                {"titleEnd" in card && card.titleEnd ? (
+                                    <h3 className={styles.cardTitle}>
+                                        {card.title} <span className={styles.cardArrow}>→</span> {card.titleEnd}
+                                    </h3>
+                                ) : (
+                                    <h3 className={styles.cardTitle}>{card.title}</h3>
+                                )}
+                                <p className={styles.cardSubtitle}>{card.subtitle}</p>
+                            </div>
+
+                            {/* Stats row */}
+                            <div className={styles.statsRow}>
+                                {card.stats.map((stat) => (
+                                    <div key={stat.label} className={styles.stat}>
+                                        <span className={styles.statValue}>{stat.value}</span>
+                                        <span className={styles.statLabel}>{stat.label}</span>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Link */}
                             {card.link && (
                                 <a
                                     href={card.link}
@@ -125,26 +147,24 @@ export default function InfoSection() {
                                     rel="noopener noreferrer"
                                     className={styles.cardLink}
                                 >
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                                        <circle cx="12" cy="10" r="3" />
+                                    </svg>
                                     {card.linkLabel}
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                                        <polyline points="15 3 21 3 21 9" />
+                                        <line x1="10" y1="14" x2="21" y2="3" />
+                                    </svg>
                                 </a>
-                            )}
-                        </div>
-                        <div className={styles.cardImageSlot}>
-                            {card.image ? (
-                                <img
-                                    src={card.image}
-                                    alt={card.title}
-                                    className={styles.cardImage}
-                                />
-                            ) : (
-                                <span className={styles.imagePlaceholder}>📸 Image à ajouter</span>
                             )}
                         </div>
                     </div>
                 ))}
             </div>
 
-            {/* Accommodation — below pinned area */}
+            {/* Accommodation — below cards */}
             <div ref={accomRef} className={styles.accommodation}>
                 <div className={styles.accomInner}>
                     <div className={styles.accomHeader}>

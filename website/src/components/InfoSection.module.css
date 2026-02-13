@@ -1,122 +1,191 @@
 .info {
     position: relative;
-    background: transparent;
+    background: linear-gradient(to bottom,
+            rgba(10, 14, 23, 0.4) 0%,
+            rgba(10, 14, 23, 0.8) 60%,
+            rgba(10, 14, 23, 0.92) 100%);
     padding-top: 100px;
-    /* Space for the fade in */
-    margin-top: -100px;
-    /* Pull up to overlap slightly if needed, or just let it flow */
-    /* Rely on video bg + glass cards */
+    margin-top: 0;
+    /* Negative shadow to seal the gap without overlap artifacts */
+    box-shadow: 0 -2px 0 0 rgba(10, 14, 23, 0.4);
+    z-index: 2;
 }
 
-
-/* ── Full-Screen Cards Viewport ── */
-.cardsViewport {
-    position: relative;
-    height: 100vh;
-    overflow: hidden;
-    /* Removed fade-in mask */
-}
-
-.fullCard {
-    position: absolute;
-    inset: 0;
+/* ── Side-by-Side Cards Row ── */
+.cardsRow {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    align-items: center;
-    will-change: transform, opacity;
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
 }
 
-.fullCardInner {
-    padding: 80px 60px 80px 80px;
+/* ── Individual Card ── */
+.card {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    min-height: 520px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    z-index: 2;
-    background: rgba(10, 14, 23, 0.25);
-    /* More transparent to blend */
-    backdrop-filter: blur(16px);
-    /* Stronger blur */
-    -webkit-backdrop-filter: blur(16px);
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    justify-content: flex-end;
+    cursor: default;
+    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.card:hover .cardImage {
+    transform: scale(1.05);
+}
+
+/* ── Card Background Image ── */
+.cardImageWrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.cardImage {
+    width: 100%;
     height: 100%;
-    justify-content: center;
-    box-shadow: 20px 0 60px rgba(0, 0, 0, 0.1);
-    /* Subtle shadow for depth */
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.cardOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+            rgba(8, 10, 18, 0.95) 0%,
+            rgba(8, 10, 18, 0.7) 35%,
+            rgba(8, 10, 18, 0.15) 65%,
+            rgba(8, 10, 18, 0) 100%);
+}
+
+/* ── Card Content (overlaid) ── */
+.cardContent {
+    position: relative;
+    z-index: 2;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cardTop {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .cardIcon {
-    font-size: 3rem;
-    margin-bottom: 12px;
+    font-size: 1rem;
+    filter: grayscale(0.2);
 }
 
 .cardLabel {
-    font-size: 0.7rem;
-    font-weight: 600;
+    font-size: 0.65rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.2em;
     color: var(--accent);
+    background: rgba(212, 168, 83, 0.12);
+    padding: 4px 12px;
+    border-radius: 100px;
+    border: 1px solid rgba(212, 168, 83, 0.2);
+}
+
+.cardMain {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .cardTitle {
     font-family: var(--font-display);
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
     font-weight: 800;
     color: var(--text-primary);
     line-height: 1.1;
+    letter-spacing: -0.02em;
 }
 
-.cardDesc {
-    font-size: 1.1rem;
-    color: var(--text-muted);
-    line-height: 1.7;
-    max-width: 400px;
-}
-
-.cardLink {
-    font-size: 0.95rem;
-    font-weight: 600;
+.cardArrow {
+    display: inline-block;
     color: var(--accent);
-    margin-top: 16px;
-    transition: color 0.3s ease;
+    font-weight: 400;
+    margin: 0 4px;
+    font-size: 0.8em;
+}
+
+.cardSubtitle {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+/* ── Stats Row ── */
+.statsRow {
+    display: flex;
+    gap: 24px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.statValue {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+.statLabel {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+}
+
+/* ── Card Link ── */
+.cardLink {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    padding: 8px 16px;
+    border-radius: 100px;
+    background: rgba(212, 168, 83, 0.08);
+    border: 1px solid rgba(212, 168, 83, 0.15);
+    width: fit-content;
+    transition: all 0.3s ease;
 }
 
 .cardLink:hover {
+    background: rgba(212, 168, 83, 0.15);
+    border-color: rgba(212, 168, 83, 0.3);
     color: var(--accent-light);
-}
-
-.cardImageSlot {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.imagePlaceholder {
-    font-size: 0.9rem;
-    color: var(--text-dim);
-    padding: 40px;
-    border: 1px dashed rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-lg);
-}
-
-.cardImage {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 1;
+    transform: translateX(2px);
 }
 
 /* ── Accommodation ── */
 .accommodation {
     padding: 120px 24px;
-    background: rgba(14, 18, 27, 0.90);
+    background: transparent;
     will-change: transform, opacity;
 }
 
@@ -164,83 +233,39 @@
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
-    .cardsViewport {
-        height: auto;
-        overflow: visible;
+    .cardsRow {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0 16px;
     }
 
-    .fullCard {
-        position: relative;
-        height: auto;
-        min-height: auto;
-        display: flex;
-        /* Stack vertically */
-        flex-direction: column;
-        margin-bottom: 24px;
-        background: rgba(20, 26, 38, 0.4);
-        /* Ensure bg color */
-        border-radius: 24px;
-        padding: 24px;
-        gap: 24px;
-    }
-
-    .fullCardInner {
-        position: relative;
-        z-index: 2;
-        padding: 0;
-        background: transparent;
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-        border: none;
-        box-shadow: none;
-        order: 2;
-        /* Text below image */
-    }
-
-    .cardImageSlot {
-        display: block;
-        position: relative;
-        width: 100%;
-        aspect-ratio: 1 / 1;
-        /* Square */
-        border-radius: 20px;
-        overflow: hidden;
-        order: 1;
-        /* Image first */
-    }
-
-    .cardImage {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+    .card {
+        min-height: 420px;
     }
 
     .cardTitle {
-        font-size: clamp(2rem, 8vw, 3rem);
-    }
-}
-
-/* Desktop Image Styling Overrides */
-@media (min-width: 901px) {
-    .cardImageSlot {
-        padding: 48px;
-        /* Breathing room */
+        font-size: clamp(1.6rem, 7vw, 2.4rem);
     }
 
-    .cardImage {
-        position: relative;
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1 / 1;
-        /* Square */
-        border-radius: 32px;
-        /* Rounded corners */
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    .cardContent {
+        padding: 24px;
     }
 }
 
 @media (max-width: 768px) {
     .accommodation {
         padding: 80px 16px;
+    }
+
+    .card {
+        min-height: 380px;
+    }
+
+    .statsRow {
+        gap: 20px;
+    }
+
+    .statValue {
+        font-size: 1.2rem;
     }
 }
