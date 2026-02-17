@@ -46,14 +46,16 @@ export default function CTASection() {
                         On va se la donner j’ai juré Tartiflette – piste noire day 1
                     </p>
 
-                    <motion.button
-                        className={styles.button}
-                        whileHover={{ scale: 1.04, y: -2 }}
-                        whileTap={{ scale: 0.98 }}
-                        transition={{ duration: 0.2 }}
-                    >
-                        <span className={styles.buttonText}>Organisation</span>
-                    </motion.button>
+                    <a href="/dashboard" className={styles.buttonLink}>
+                        <motion.button
+                            className={styles.button}
+                            whileHover={{ scale: 1.04, y: -2 }}
+                            whileTap={{ scale: 0.98 }}
+                            transition={{ duration: 0.2 }}
+                        >
+                            <span className={styles.buttonText}>Organisation</span>
+                        </motion.button>
+                    </a>
                 </div>
             </div>
         </section>

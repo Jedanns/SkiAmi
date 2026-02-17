@@ -8,6 +8,7 @@ const navLinks = [
     { label: "Le Séjour", href: "#sejour" },
     { label: "Budget", href: "#budget" },
     { label: "Participer", href: "#cta" },
+    { label: "Organisation", href: "/dashboard" },
 ];
 
 export default function Header() {

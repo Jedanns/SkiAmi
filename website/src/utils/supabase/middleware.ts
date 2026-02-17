@@ -10,7 +10,9 @@ export const updateSession = async (request: NextRequest) => {
 
     // If Supabase is not configured, skip session refresh
     if (!supabaseUrl || !supabaseKey) {
-        return NextResponse.next({ request });
+        return {
+            supabaseResponse: NextResponse.next({ request }),
+        };
     }
 
     let supabaseResponse = NextResponse.next({
@@ -40,5 +42,8 @@ export const updateSession = async (request: NextRequest) => {
     // Refreshes the auth token and keeps the session alive
     await supabase.auth.getUser();
 
-    return supabaseResponse;
+    return {
+        supabaseResponse,
+        supabase,
+    };
 };

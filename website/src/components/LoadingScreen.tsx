@@ -2,11 +2,16 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import styles from "./LoadingScreen.module.css";
 
-export default function LoadingScreen({ onComplete }: { onComplete: () => void }) {
+export default function LoadingScreen({
+    onComplete,
+    duration = 3000
+}: {
+    onComplete: () => void,
+    duration?: number
+}) {
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
-        const duration = 3000; // Exact 3 seconds
         const interval = 16;
         const totalSteps = duration / interval;
         const increment = 100 / totalSteps;
@@ -38,7 +43,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
             initial={{ opacity: 1 }}
             exit={{
                 y: "-100%",
-                transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] }
+                transition: { duration: duration < 1000 ? 0.4 : 0.8, ease: [0.76, 0, 0.24, 1] }
             }}
         >
             <div className={styles.content}>

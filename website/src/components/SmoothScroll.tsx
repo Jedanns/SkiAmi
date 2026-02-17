@@ -5,6 +5,7 @@ import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 import LoadingScreen from "./LoadingScreen";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,6 +13,9 @@ gsap.registerPlugin(ScrollTrigger);
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
     const lenisRef = useRef<Lenis | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const pathname = usePathname();
+
+    const loadingDuration = pathname === "/" ? 3000 : 750;
 
     useEffect(() => {
         // Force scroll to top on load/refresh
@@ -55,7 +59,10 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
         <>
             <AnimatePresence mode="wait">
                 {isLoading && (
-                    <LoadingScreen onComplete={() => setIsLoading(false)} />
+                    <LoadingScreen
+                        onComplete={() => setIsLoading(false)}
+                        duration={loadingDuration}
+                    />
                 )}
             </AnimatePresence>
             {children}
